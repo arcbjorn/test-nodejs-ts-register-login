@@ -106,15 +106,19 @@ app.post("/login", async (req: Request, res: Response) => {
     return;
   }
 
-  bcrypt.compare(req.body.password, user.passwordhash, function (_, result) {
-    if (result) {
-      res.writeHead(200);
-      res.write("OK");
-    } else {
-      res.write("Wrong password");
-      res.writeHead(401);
+  bcrypt.compare(
+    req.body.password,
+    user.passwordhash,
+    function (_: Error, result: boolean) {
+      if (result) {
+        res.writeHead(200);
+        res.write("OK");
+      } else {
+        res.write("Wrong password");
+        res.writeHead(401);
+      }
     }
-  });
+  );
 });
 
 app.listen(port, () => {
