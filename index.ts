@@ -71,7 +71,7 @@ app.get("/register", async (req: Request, res: Response) => {
 
   if (getUserByUsername(req.body.username)) {
     res.write("User with this username already exists");
-    res.writeHead(404);
+    res.writeHead(400);
     return;
   }
 
